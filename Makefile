@@ -10,11 +10,14 @@ PROGRAM		:= bin/debug/sdk
 
 programa: $(PROGRAM)
 
-$(PROGRAM): $(OBJ) $(OBJS)
-	$(CC) $(CCFLAGS) $(OBJS) -o $(PROGRAM)
+$(PROGRAM): $(OBJ) $(OBJS) ico
+	$(CC) $(CCFLAGS) $(OBJS) icon.res -o $(PROGRAM)
 
 $(OBJ)/%.o: $(SRC)/%.c
 	$(CC) $< -c -o $@ $(FLAGS) $(CFLAGS)
+
+ico: icon.rc
+	windres icon.rc -O coff -o icon.res
 
 clean:
 	rm $(OBJS)

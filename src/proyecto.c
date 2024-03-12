@@ -5,7 +5,9 @@
 #define makefile 1200
 
 void newProject(char**argv){
-	if(strcmp(argv[2],"nuevo") == 0) createProject(argv[3],argv[0]);
+	if(strcmp(argv[2],"nuevo") == 0) { createProject(argv[3],argv[0]); }
+	else if (strcmp(argv[2],"carga") == 0) { puts("Aun no disponible."); }
+	else { puts("Comando invalido - busque ayuda en -h"); }
 }
 
 void createProject(char*address,char*dirBase){
