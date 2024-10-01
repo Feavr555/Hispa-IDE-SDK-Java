@@ -13,7 +13,7 @@ PROGRAM		:= bin/debug/sdk
 OBJ_LINUX	:= obj_linux
 OBJS_LINUX	:= $(addprefix $(OBJ_LINUX)/,$(notdir $(SORCES:.c=.o)))
 
-PROJECT		:= Hispa-IDE-Java
+PROJECT		:= Hispa-IDE-SDK-Java
 
 programa: $(PROGRAM)
 
