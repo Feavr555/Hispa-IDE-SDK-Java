@@ -6,7 +6,7 @@
 void asistente(char argv){
 	switch(argv){
 		case 'v':
-			puts("Hispa SDK Java - alpha unstable 0.1.3");
+			puts("Hispa SDK Java - alpha unstable 0.1.5");
 			puts("Autor: Marco P. Debiasi");
 			break;
 		case 'h':
@@ -28,7 +28,7 @@ void asistente(char argv){
 void addPack(char*namePack,char*nameFile){
 	FILE*java = createFile(namePack,nameFile);
 	char*code = writeJava(namePack,nameFile);
-	int j = size_of(code,100);
+	int j = size_of(code,strlen(code) + 12);
 	fwrite(code,1,j,java);
 	fclose(java);
 	free(code);

@@ -16,8 +16,9 @@ int size_of(char*str,int size){
 
 
 FILE*createFile(char*namePack,char*nameFile){
+	int size_file = strlen(namePack) + strlen(nameFile) + 20;
 	FILE*java;
-	char*code = reserve(50,0x20);
+	char*code = reserve(size_file,0x20);
 	strcpy(code,"src/");
 	strcat(code,namePack);
 	//mkdir(code,0755);
@@ -32,8 +33,11 @@ FILE*createFile(char*namePack,char*nameFile){
 }
 
 char*writeJava(char*namePack,char*nameFile){
-	char*code = reserve(100,0x20);
-	char*func = reserve(50,0x20);
+
+	char*func = reserve(50 + strlen(nameFile),0x20);
+	char*code = reserve(50 + strlen(nameFile) + strlen(namePack)
+			+ strlen(func), 0x20);
+
 	strcpy(func,"\tpublic ");
 	strcat(func,nameFile);
 	strcat(func,"(){\n");

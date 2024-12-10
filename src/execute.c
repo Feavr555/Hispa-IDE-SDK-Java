@@ -38,8 +38,8 @@ char *getFiles(DIR *folder,struct dirent *directorio,char *name_pack,char *suFil
 
 char *getClass(DIR *folder,struct dirent *directorio,char *name_pack,char *suFiles)
 {
-	char *dirs = (char*)malloc(500);
-	if(folder == NULL) { puts("Error aquí!\n"); }
+	char *dirs = (char*)malloc(800);
+	if(folder == NULL) { puts("Error aquí!\n"); return 0x00; }
 	while((directorio = readdir(folder))){
 		if(directorio->d_name[0] != '.' && post_point(directorio->d_name,suFiles)){
 			strcat(dirs,"-C bin ");
@@ -137,8 +137,8 @@ void export(int argc,char**argv)
 	folder = opendir(directory);
 
 	// get names packages
-	char *packs = (char*)malloc(100);
-	Vector *package = Vector_init(100);
+	char *packs = (char*)malloc(200);
+	Vector *package = Vector_init(200);
 	int i = 0;
 	while((directorio = readdir(folder))){
 		if(directorio->d_name[0] != '.'){
@@ -148,25 +148,27 @@ void export(int argc,char**argv)
 		}
 	}
 	// get all files of all packages
-	char *name_pack = (char*)malloc(100);
-	char *dirs = (char*)malloc(500);
+	char *name_pack = (char*)malloc(200);
+	char *dirs = (char*)malloc(800);
 	for(int i=0; i<package->size; ++i){
 		char *name_pack_only = getPack(package,name_pack,directory,"bin",i);
 
 		folder = opendir(directory);
 
-		printf("%s\n",name_pack_only);
-		printf("%s\n",directory);
-		strcat(dirs,getClass(folder,directorio,name_pack_only,".class"));
-		printf("%s\n",dirs);
+		//printf("%s\n",name_pack_only);
+		//printf("%s\n",directory);
+		char *_class = (char*)malloc(800);
+		_class = getClass(folder,directorio,name_pack_only,".class");
+		strcat(dirs,_class);
+		//printf("%s\n",dirs);
+		free(_class);
 	}
 	
-
 	// compile from class
-	char *javac = (char*)malloc(strlen(dirs)+50);
+	char *javac = (char*)malloc(strlen(dirs)+100);
 	strcpy(javac,"jar cvfe export/program.jar main.Main ");
 	strcat(javac,dirs);
-	printf("%s\n",javac);
+	//printf("%s\n",javac);
 	system(javac);
 
 	// free memory

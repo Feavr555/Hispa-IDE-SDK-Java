@@ -15,14 +15,14 @@ OBJS_LINUX	:= $(addprefix $(OBJ_LINUX)/,$(notdir $(SORCES:.c=.o)))
 
 PROJECT		:= Hispa-IDE-SDK-Java
 
-programa: $(PROGRAM)
+programa: dirs $(PROGRAM)
 
 $(PROGRAM): $(OBJ) $(OBJS) #ico
 	$(CC_WIN) $(CCFLAGS) $(OBJS) icon.res -o $(PROGRAM)
 
 
 linux_static: $(OBJ_LINUX) $(OBJS_LINUX)
-	$(CC) $(CCFLAGS) $(OBJS_LINUX) -o $(PROGRAM)
+	$(CC) -g $(CCFLAGS) $(OBJS_LINUX) -o $(PROGRAM)
 
 linux_shared: $(OBJ_LINUX) $(OBJS_LINUX)
 	$(CC) $(OBJS_LINUX) -o $(PROGRAM)
@@ -49,6 +49,8 @@ clean:
 cleanall: clean
 	rm $(PROGRAM).exe
 
+dirs:
+	mkdir -p obj obj_linux
 
 push:
 	git remote set-url origin \
